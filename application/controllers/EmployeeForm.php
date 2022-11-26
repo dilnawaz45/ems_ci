@@ -143,6 +143,32 @@ class EmployeeForm extends CI_Controller {
 		);
 		$data = $this->employee_model->create_emp($rateArr, $id);
 		if($data){
+
+			$emp = $this->employee_model->getValue('employees', $id);
+			$this->load->config('email');
+			$this->load->library('email');
+			
+			$from = $this->config->item('smtp_user');
+			$to = $emp->email;
+
+			$stars = '';
+			for($i=1; $i<=$rate; $i++){
+				$stars .= '&#9733;';
+			}
+			$subject = "Admin rating you!!!!!";
+			$message = 'Hi '. $emp->name.',<br/>
+			Your Rating are '.$stars.'
+			<br/>
+			<br/>
+			Thank You.';
+
+			$this->email->set_newline("\r\n");
+			$this->email->from($from);
+			$this->email->to($to);
+			$this->email->subject($subject);
+			$this->email->message($message);
+			$this->email->send();
+
 			echo "1|Rating saved successfully!";
 		}
 		else{

@@ -97,11 +97,12 @@
                         var str = data.split("|");
                         if(str[0] == 1){
                             alert(str[1]);
-                            window.location.href="<?=base_url('Dashboard/index');?>";
+                            //window.location.href="<?=base_url('Dashboard/index');?>";
                         }
                         else{
                             alert(str[1]);
                         }
+                        window.location.href="<?=base_url('Dashboard/index');?>";
                     }
                 });
             }
